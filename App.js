@@ -2,19 +2,56 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons'; // iconos
+
 
 import HomeScreen from './componentes/HomeScreen';
-import ProfileScreen from './componentes/ProfileScreen';
 
+import CartScreen from './componentes/CartScreen';
+import SettingsScreen from './componentes/SettingsScreen';
+
+const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Profile" component={ProfileScreen} />
-      </Stack.Navigator>
+     <NavigationContainer>
+    {/* //   <Tab.Navigator screenOptions={{ headerShown: false }}>
+    //     <Tab.Screen name="Inicio" component={HomeScreen} />
+    //     <Tab.Screen name="Mi Perfil" component={ProfileScreen} />
+    //   </Tab.Navigator> */}
+          <Tab.Navigator
+        screenOptions={({ route }) => ({
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => {
+            let iconName;
+
+            // Elegí el ícono según el nombre de la pestaña
+            switch (route.name) {
+              case 'Inicio':
+                iconName = 'home-outline';
+                break;
+              case 'Mi Perfil':
+                iconName = 'person-outline';
+                break;
+              case 'Carrito':
+                iconName = 'cart-outline';
+                break;
+              case 'Ajustes':
+                iconName = 'settings-outline';
+                break;
+            }
+
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+        })}
+      >
+        <Tab.Screen name="Inicio" component={HomeScreen} />
+        <Tab.Screen name="Mi Perfil" component={ProfileScreen} />
+        <Tab.Screen name="Carrito" component={CartScreen} />
+        <Tab.Screen name="Ajustes" component={SettingsScreen} />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
