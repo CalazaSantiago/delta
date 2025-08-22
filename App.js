@@ -10,6 +10,8 @@ import HomeScreen from './componentes/HomeScreen';
 
 import CartScreen from './componentes/CartScreen';
 import SettingsScreen from './componentes/SettingsScreen';
+import ProfileScreen from './componentes/ProfileScreen';
+import DolarScreen from './componentes/DolarScreen'; 
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -41,6 +43,9 @@ export default function App() {
               case 'Ajustes':
                 iconName = 'settings-outline';
                 break;
+                case 'Dolar':
+                iconName = 'cash-outline';
+                break;
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;
@@ -51,6 +56,7 @@ export default function App() {
         <Tab.Screen name="Mi Perfil" component={ProfileScreen} />
         <Tab.Screen name="Carrito" component={CartScreen} />
         <Tab.Screen name="Ajustes" component={SettingsScreen} />
+        <Tab.Screen name="Dolar" component={DolarScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );
