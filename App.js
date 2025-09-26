@@ -1,40 +1,38 @@
-<<<<<<<<< Temporary merge branch 1
 import 'react-native-gesture-handler';
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons'; // iconos
-
+import { Ionicons } from '@expo/vector-icons';
 
 import HomeScreen from './componentes/HomeScreen';
-
 import CartScreen from './componentes/CartScreen';
 import SettingsScreen from './componentes/SettingsScreen';
+import ProfileScreen from './componentes/ProfileScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-=========
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import ProfileScreen from './componentes/ProfileScreen';
-
->>>>>>>>> Temporary merge branch 2
 
 export default function App() {
   return (
-     <NavigationContainer>
-    {/* //   <Tab.Navigator screenOptions={{ headerShown: false }}>
-    //     <Tab.Screen name="Inicio" component={HomeScreen} />
-    //     <Tab.Screen name="Mi Perfil" component={ProfileScreen} />
-    //   </Tab.Navigator> */}
-          <Tab.Navigator
+    // Usamos el tema oscuro global
+    <NavigationContainer theme={DarkTheme}>
+      <Tab.Navigator
         screenOptions={({ route }) => ({
           headerShown: false,
+          // Fondo oscuro de la barra
+          tabBarStyle: {
+            backgroundColor: '#1f1f1f',
+            borderTopColor: '#2a2a2a',
+            paddingBottom: 4,
+            height: 60,
+          },
+          tabBarActiveTintColor: '#03DAC6',   // color activo (verde aqua)
+          tabBarInactiveTintColor: '#888',    // color inactivo (gris)
           tabBarIcon: ({ color, size }) => {
             let iconName;
 
-            // Elegí el ícono según el nombre de la pestaña
+            // Íconos según pestaña
             switch (route.name) {
               case 'Inicio':
                 iconName = 'home-outline';
@@ -49,7 +47,6 @@ export default function App() {
                 iconName = 'settings-outline';
                 break;
             }
-
             return <Ionicons name={iconName} size={size} color={color} />;
           },
         })}
