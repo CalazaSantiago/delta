@@ -46,7 +46,7 @@ const styles = StyleSheet.create ({
    flex: 1,
     justifyContent: 'center',
     paddingHorizontal: 20,
-     fontSize: 24,
+     fontSize: 25,
     marginBottom: 20,
     textAlign: 'center',
     fontWeight: 'bold',
