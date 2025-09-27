@@ -1,98 +1,86 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Switch } from 'react-native';
 
-export default function ProfileScreen() {
+export default function ProfileScreen({ isDarkMode, setIsDarkMode }) {
   return (
-    <View style={styles.container}>
-      {/* Encabezado con avatar y nombre */}
-      <View style={styles.header}>
+    <View style={[styles.container, { backgroundColor: isDarkMode ? '#121212' : '#f5f5f5' }]}>
+      {/* Encabezado */}
+      <View style={[styles.header, { backgroundColor: isDarkMode ? '#1f1f1f' : '#ffffff' }]}>
         <Image
           source={{ uri: 'https://i.pravatar.cc/150?img=3' }}
-          style={styles.avatar}
+          style={[styles.avatar, { borderColor: isDarkMode ? '#03DAC6' : '#007AFF' }]}
         />
         <View>
-          <Text style={styles.name}>Juan Pérez</Text>
-          <Text style={styles.email}>juan.perez@email.com</Text>
+          <Text style={[styles.name, { color: isDarkMode ? '#fff' : '#000' }]}>Juan Pérez</Text>
+          <Text style={[styles.email, { color: isDarkMode ? '#bbb' : '#555' }]}>juan.perez@email.com</Text>
         </View>
       </View>
 
-      {/* Opciones de menú */}
+      {/* Botón para alternar tema */}
+      <View style={styles.themeToggle}>
+        <Text style={{ color: isDarkMode ? '#fff' : '#000', fontSize: 16 }}>
+          Modo oscuro
+        </Text>
+        <Switch
+          value={isDarkMode}
+          onValueChange={value => setIsDarkMode(value)}
+          thumbColor={isDarkMode ? '#03DAC6' : '#f4f3f4'}
+          trackColor={{ false: '#ccc', true: '#03DAC6' }}
+        />
+      </View>
+
+      {/* Menú */}
       <View style={styles.menu}>
-        <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuIcon}>👤</Text>
-          <Text style={styles.menuText}>Mi cuenta</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuIcon}>🛒</Text>
-          <Text style={styles.menuText}>Mis compras</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuIcon}>⚙️</Text>
-          <Text style={styles.menuText}>Configuración</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuIcon}>🚪</Text>
-          <Text style={styles.menuText}>Cerrar sesión</Text>
-        </TouchableOpacity>
+        {['Mi cuenta', 'Mis compras', 'Configuración', 'Cerrar sesión'].map((item, idx) => (
+          <TouchableOpacity
+            key={idx}
+            style={[
+              styles.menuItem,
+              { backgroundColor: isDarkMode ? '#1e1e1e' : '#ffffff' },
+            ]}
+          >
+            <Text style={[styles.menuText, { color: isDarkMode ? '#fff' : '#000' }]}>{item}</Text>
+          </TouchableOpacity>
+        ))}
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  // Fondo oscuro general
-  container: {
-    flex: 1,
-    backgroundColor: '#121212', // gris muy oscuro
-    paddingTop: 40,
-  },
-
-  // Encabezado con gradiente sólido
+  container: { flex: 1, paddingTop: 40 },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#1f1f1f', // tono más claro para distinguir
     padding: 20,
     marginBottom: 20,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     elevation: 3,
   },
-
   avatar: {
     width: 70,
     height: 70,
     borderRadius: 35,
     marginRight: 15,
     borderWidth: 2,
-    borderColor: '#03DAC6', // verde aqua estilo Material
     backgroundColor: '#222',
   },
-
-  name: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#ffffff', // texto claro
-  },
-
-  email: {
-    fontSize: 15,
-    color: '#bbb', // gris suave
-    marginTop: 4,
-  },
-
-  menu: {
-    marginTop: 30,
-  },
-
-  // Botones del menú
-  menuItem: {
+  name: { fontSize: 22, fontWeight: 'bold' },
+  email: { fontSize: 15, marginTop: 4 },
+  themeToggle: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#1e1e1e', // contenedores oscuros
+    paddingHorizontal: 25,
+    paddingVertical: 15,
+    marginHorizontal: 18,
+    borderRadius: 12,
+    backgroundColor: '#1e1e1e',
+    marginBottom: 20,
+  },
+  menu: { marginTop: 10 },
+  menuItem: {
     paddingVertical: 18,
     paddingHorizontal: 25,
     marginBottom: 12,
@@ -100,15 +88,5 @@ const styles = StyleSheet.create({
     marginHorizontal: 18,
     elevation: 2,
   },
-
-  menuIcon: {
-    fontSize: 22,
-    marginRight: 18,
-    color: '#03DAC6', // color de acento
-  },
-
-  menuText: {
-    fontSize: 17,
-    color: '#ffffff',
-  },
+  menuText: { fontSize: 17 },
 });
