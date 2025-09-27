@@ -23,8 +23,8 @@ export default function SettingsScreen() {
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.option}
-      onPress={() => handlePress ("idiomas")}>
-        <Text style={styles.optionText}>idiomas</Text>
+      onPress={() => handlePress ("idioma")}>
+        <Text style={styles.optionText}>idioma</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={[styles.option, {backgroundColor: '#fff'}]}
